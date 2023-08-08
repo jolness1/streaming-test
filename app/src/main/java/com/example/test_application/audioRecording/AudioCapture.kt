@@ -1,6 +1,8 @@
 package com.example.test_application.audioRecording
 import android.media.MediaRecorder
 import java.io.IOException
+import android.util.Log
+
 
 class AudioCapture {
     private var recorder: MediaRecorder? = null
@@ -20,7 +22,7 @@ class AudioCapture {
                 recorder?.start()
                 isRecording = true
             } catch (e: IOException) {
-                error("Recording not properly started")
+                Log.e("Not recording","Recording not properly started")
             }
     }
 
@@ -29,11 +31,11 @@ class AudioCapture {
                 recorder?.stop()
                 recorder?.reset()
             } catch (e: IllegalStateException) {
-                error("Recording not properly stopped")
+                Log.e("Not stopping","Recording not properly stopped")
             } finally {
                 recorder?.release()
                 recorder = null
                 isRecording = false
             }
         }
-}
+}1
