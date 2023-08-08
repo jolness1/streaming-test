@@ -12,29 +12,40 @@ class AudioCapture {
 
     }
     fun startRecording(outputFile: String) {
-            recorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
-            recorder?.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
-            recorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
-            recorder?.setOutputFile(outputFile)
-            try {
-                recorder?.prepare()
-                recorder?.start()
-                isRecording = true
-            } catch (e: IOException) {
-                Log.e("Not recording","Recording not properly started")
+        recorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
+        recorder?.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
+        recorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
+        recorder?.setOutputFile(outputFile)
+
+        recorder?.setOnErrorListener { mediaRecorder, i, i1 ->
+            // Handle the error
+        }
+
+        recorder?.setOnInfoListener(object : MediaRecorder.OnInfoListener {
+            override fun onInfo(mediaRecorder: MediaRecorder, i: Int, i1: Int) {
+                // Handle the info
             }
+        })
+
+        try {
+            recorder?.prepare()
+            recorder?.start()
+            isRecording = true
+        } catch (e: IOException) {
+            Log.e("Not recording","Recording not properly started")
+        }
     }
 
     fun stopRecording() {
-            try {
-                recorder?.stop()
-                recorder?.reset()
-            } catch (e: IllegalStateException) {
-                Log.e("Not stopping","Recording not properly stopped")
-            } finally {
-                recorder?.release()
-                recorder = null
-                isRecording = false
-            }
+        try {
+            recorder?.stop()
+            recorder?.reset()
+        } catch (e: IllegalStateException) {
+            Log.e("Not stopping","Recording not properly stopped")
+        } finally {
+            recorder?.release()
+            recorder = null
+            isRecording = false
         }
+    }
 }

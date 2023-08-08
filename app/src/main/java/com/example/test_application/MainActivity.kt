@@ -49,6 +49,7 @@ fun MainActivityContent() {
             onClick = {
                 isRecording = true
                 val outputFile = getExternalStorageFile(context.contentResolver,"/file.3GP")
+                Log.e("Output File:", outputFile)
                 audioCapture.startRecording(outputFile)
             }
         ) {
@@ -72,7 +73,7 @@ private fun getExternalStorageFile(contentResolver: ContentResolver, fileName: S
     val values = ContentValues().apply {
         put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
         put(MediaStore.MediaColumns.MIME_TYPE, "audio/3gpp")
-        put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_MUSIC)
+        put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PODCASTS)
     }
 
     val audioUri = contentResolver.insert(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, values)
