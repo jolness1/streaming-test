@@ -12,7 +12,6 @@ class AudioCapture {
 
     }
     fun startRecording(outputFile: String) {
-            recorder = MediaRecorder()
             recorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
             recorder?.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
             recorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
@@ -38,4 +37,4 @@ class AudioCapture {
                 isRecording = false
             }
         }
-}1
+}
